@@ -1,0 +1,21 @@
+@model List<Book>
+
+@{
+    ViewData["Title"] = "Book List";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <ol>
+        @foreach (var book in Model)
+        {
+        <li>
+            <h2>@book.Title</h2>
+            <img src="@book.ImageUrl" alt="@book.Title">
+            <h3>@book.YearPublished, by @book.Author</h3>
+            <p>@book.Blurb</p>
+        </li>
+        }
+
+    </ol>
+    </div>
