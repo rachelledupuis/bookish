@@ -1,3 +1,5 @@
 **/obj/
 **/bin/
 desktop.ini
+.vscode/launch.json
+.vscode/tasks.json
