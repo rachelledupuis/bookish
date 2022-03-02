@@ -21,7 +21,7 @@ namespace bookish.Services
                 new Book{
                     Title = dbBook.Title,
                     YearPublished = dbBook.YearPublished,
-                    Author = author.Name,
+                    Author = author?.Name,
                     ImageUrl = dbBook.ImageUrl,
                     Blurb = dbBook.Blurb
                 }
