@@ -23,6 +23,12 @@ public class HomeController : Controller
     {
         return View();
     }
+    public IActionResult Members()
+    {
+        var memberService = new MemberService();
+        var members = memberService.GetAllMembers();
+        return View(members);
+    }
 
     public IActionResult BookList()
     {
