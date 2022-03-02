@@ -4,5 +4,9 @@ namespace bookish.Models.Database
     {
         public int Id { get; set; }
         public string? Member { get; set; }
+
+        public string? Email { get; set; }
+
+        public DateTime BirthDate { get; set; }
     }
 }
