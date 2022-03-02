@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using bookish.Models;
+using bookish.Services;
 
 namespace bookish.Controllers;
 
@@ -25,8 +26,10 @@ public class HomeController : Controller
 
     public IActionResult BookList()
     {
-        var books = new List<Book>{
-            new Book{
+        var bookService = new BookService();
+        var books = bookService.GetAllBooks();
+       /* {
+             new Book{
                 Title = "Harry Potter And The Prisoner Of Azkaban",
                 YearPublished = 1999,
                 Author = "JK Rowling",
@@ -46,10 +49,12 @@ public class HomeController : Controller
                 Author = "JK Rowling",
                 ImageUrl = "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1474171184l/136251._SY475_.jpg",
                 Blurb = "Harry finds some hawcruxes, whatever they are"
-            },
-        };
+            }, 
+        };*/
         return View(books);
     }
+
+
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
