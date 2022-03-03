@@ -9,7 +9,7 @@ namespace bookish
         public DbSet<AuthorDbModel> Authors { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         { 
-            optionsBuilder.UseSqlServer(@"Server=localhost;Database=BookishDB;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer(@"Server=localhost;Database=BookishDB;Trusted_Connection=True;TrustServerCertificate=True;");
         }
     }
 }

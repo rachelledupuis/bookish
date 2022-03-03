@@ -1,14 +1,16 @@
 using bookish.Models.Database;
+using Microsoft.EntityFrameworkCore;
 
 namespace bookish.Repositories
 {
     public class BookRepo
     {
+        private BookishContext _context = new BookishContext();
         public List<BookDbModel> GetAllBooks()
         {
-            return new List<BookDbModel>
+            return _context.Books.Include(b => b.Author).ToList();
             {
-                new BookDbModel
+                /* new BookDbModel
                 {
                     Id = 1,
                     Isbn = "9781842323007",
@@ -27,7 +29,7 @@ namespace bookish.Repositories
                     YearPublished = 1925,
                     ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/The_Great_Gatsby_Cover_1925_Retouched.jpg/440px-The_Great_Gatsby_Cover_1925_Retouched.jpg",
                     AuthorId = 2
-                }
+                } */
             };
         }
     }

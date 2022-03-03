@@ -8,6 +8,6 @@ namespace bookish.Models.Database
         public string? Blurb { get; set; }
         public int YearPublished { get; set; }
         public string? ImageUrl { get; set; }
-        public int? AuthorId { get; set; }
+        public AuthorDbModel? Author { get; set; }
     }
 }
