@@ -10,6 +10,7 @@ namespace bookish
         public DbSet<MemberDbModel> Members { get; set;}
 
         public DbSet<LoanDbModel> Loans { get; set; }
+        public DbSet<LibraryDbModel> Library { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         { 
             optionsBuilder.UseSqlServer(@"Server=localhost;Database=BookishDB;Trusted_Connection=True;TrustServerCertificate=True;");
