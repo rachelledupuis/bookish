@@ -1,10 +1,10 @@
-namespace bookish.Models.Database
+namespace bookish.Models
 {
-    public class LoanDbModel
+    public class Loan
     {
         public int Id { get; set; }
 
-        public MemberDbModel? Member { get; set; }
+        public int MemberId { get; set; }
 
         public string? BookId { get; set; }
 

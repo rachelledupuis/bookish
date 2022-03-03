@@ -1,5 +1,5 @@
 using bookish.Models.Database;
-
+using Microsoft.EntityFrameworkCore;
 namespace bookish.Repositories
 {
     public class LoanRepo
@@ -9,7 +9,7 @@ namespace bookish.Repositories
 
         public List<LoanDbModel> GetAllLoans()
         {
-            return _context.Loans.ToList();
+            return _context.Loans.Include(l => l.Member).ToList();
         }
     }
 }
