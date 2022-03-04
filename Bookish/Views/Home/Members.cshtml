@@ -3,18 +3,24 @@
 @{
     ViewData["Title"] = "Members";
 }
-
-<div class="text-center">
-    <h1 class="display-4">See our members</h1>
-    <ol>
+<h1 class="display-4">See our members</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Birth Date</th>
+    </tr>
+  </thead>
+  <tbody>
         @foreach (var Member in Model)
         {
-        <li>
-            <h2>@Member.Id - @Member.Name</h2>
-            <h3>@Member.Email</h3>
-            <p>@Member.BirthDate</p>
-        </li>
+            <tr>
+                <th scope="row">@Member.Id</th>
+                <td>@Member.Name</td>
+                <td>@Member.Email</td>
+                <td>@Member.BirthDate</td>
+            </tr>   
         }
-
-    </ol>
-    </div>
+  </tbody>
