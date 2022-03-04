@@ -5,15 +5,20 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <ol>
+    <h1 class="display-4 mb-4">Browse our books</h1>
+    <ol class="d-flex flex-row">
         @foreach (var book in Model)
         {
-        <li>
-            <h2>@book.Title</h2>
-            <img width='200' src="@book.ImageUrl" alt="@book.Title">
-            <h3>@book.YearPublished, by @book.Author</h3>
-            <p>@book.Blurb</p>
+        <li style="list-style: none;" class="me-4">
+            <div class="card mb-2" style="width: 18rem;">
+                <img src="@book.ImageUrl" class="card-img-top" alt="@book.Title">
+                <div class="card-body">
+                    <h5 class="card-title">@book.Title</h5>
+                    <p class="card-text">@book.Blurb</p>
+                    <p>@book.YearPublished, by @book.Author</p>
+                    <a href="#" class="btn btn-primary">More info</a>
+                </div>
+            </div>
         </li>
         }
 
