@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using bookish.Models;
 using bookish.Services;
+using bookish.Models.Database;
 
 namespace bookish.Controllers;
 
@@ -36,33 +37,27 @@ public class HomeController : Controller
     public IActionResult BookList()
     {
         var books = _bookService.GetAllBooks();
-       /* {
-             new Book{
-                Title = "Harry Potter And The Prisoner Of Azkaban",
-                YearPublished = 1999,
-                Author = "JK Rowling",
-                ImageUrl = "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1630547330l/5._SY475_.jpg",
-                Blurb = "Sirius Black turns out to be a good guy despite his name and house"
-            },
-            new Book{
-                Title = "Harry Potter And The Chamber of Secrets",
-                YearPublished = 1997,
-                Author = "JK Rowling",
-                ImageUrl = "https://images-na.ssl-images-amazon.com/images/I/51mFoFmu0EL._SX335_BO1,204,203,200_.jpg",
-                Blurb = "Harry talks to some snakes"
-            },
-            new Book{
-                Title = "Harry Potter And The Deathly Hallows",
-                YearPublished = 2006,
-                Author = "JK Rowling",
-                ImageUrl = "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1474171184l/136251._SY475_.jpg",
-                Blurb = "Harry finds some hawcruxes, whatever they are"
-            }, 
-        };*/
+       
         return View(books);
     }
 
+    public IActionResult CreateBook()
+    {
+        return View();
+    }
 
+    [HttpPost]
+    public IActionResult CreateBook(BookDbModel book)
+    {
+        string isbn = book.Isbn;
+        string title = book.Title;
+        string blurb = book.Blurb;
+        int yearPublished = book.YearPublished;
+        string imageUrl = book.ImageUrl;
+        AuthorDbModel author = book.Author;
+ 
+        return Content($"This is your book title: {book.Title}");
+    }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()

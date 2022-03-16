@@ -1,0 +1,8 @@
+@model bookish.Models.Database.BookDbModel
+ 
+<form asp-action="CreateBook" asp-controller="Home">
+    <label asp-for="Title"></label>
+    <input asp-for="Title" placeholder="Your name goes here"/>
+    <input type="submit" />
+    <input name="__RequestVerificationToken" type="hidden" value="<token_generated_here>">
+</form>
