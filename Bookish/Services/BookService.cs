@@ -1,5 +1,6 @@
 using bookish;
 using bookish.Models;
+using bookish.Models.Database;
 using bookish.Repositories;
 
 namespace bookish.Services
@@ -26,17 +27,45 @@ namespace bookish.Services
             {
                 books.Add(
                     new Book{
-                        Title = dbBook.Title,
-                        YearPublished = dbBook.YearPublished,
-                        Author = dbBook.Author.Name,
-                        ImageUrl = dbBook.ImageUrl,
-                        Blurb = dbBook.Blurb
+                        Title = dbBook?.Title,
+                        YearPublished = dbBook?.YearPublished,
+                        Author = new AuthorDbModel{
+                            Name = dbBook?.Author?.Name
+                            },
+                        ImageUrl = dbBook?.ImageUrl,
+                        Blurb = dbBook?.Blurb
                     }
                 );
             }
             return books;
         }
+        /* public BookDbModel CreateBook(BookDbModel createBook)
+        {
+            var newAuthor = new AuthorDbModel();
 
+            if (createBook.Author != null)
+            {
+                newAuthor.Add(
+                    new AuthorDbModel
+                    {
+                        Name = createBook.Author.Name,
+                    }
+                );
+            }
 
+            var newBook = _books.CreateBook(
+                new BookDbModel
+                {
+                    Isbn = createBook.Isbn,
+                    Title = createBook.Title,
+                    ImageUrl = createBook.ImageUrl,
+                    Blurb = createBook.Blurb,
+                    Author = createBook.Author,
+                    YearPublished = createBook.YearPublished,
+                }
+            );
+
+            return new BookDbModel(newBook);
+        } */
     }
 }

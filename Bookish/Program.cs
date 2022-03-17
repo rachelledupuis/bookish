@@ -1,5 +1,6 @@
 using bookish.Repositories;
 using bookish.Services;
+using bookish;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +9,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IBookRepo, BookRepo>();
 builder.Services.AddScoped<IBookService, BookService>();
+builder.Services.AddScoped<BookishContext>();
 
 var app = builder.Build();
 

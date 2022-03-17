@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using bookish.Models;
 using bookish.Services;
 using bookish.Models.Database;
+using bookish.Repositories;
 
 namespace bookish.Controllers;
 
@@ -11,11 +12,13 @@ public class HomeController : Controller
     private readonly ILogger<HomeController> _logger;
 
     private readonly IBookService _bookService;
+    private readonly BookishContext _context;
 
-    public HomeController(ILogger<HomeController> logger, IBookService bookService)
+    public HomeController(ILogger<HomeController> logger, IBookService bookService, BookishContext context)
     {
         _logger = logger;
         _bookService = bookService;
+        _context = context;
     }
 
     public IActionResult Index()
@@ -47,16 +50,12 @@ public class HomeController : Controller
     }
 
     [HttpPost]
-    public IActionResult CreateBook(BookDbModel book)
+    public IActionResult CreateBook([FromForm] BookDbModel book)
     {
-        string isbn = book.Isbn;
-        string title = book.Title;
-        string blurb = book.Blurb;
-        int yearPublished = book.YearPublished;
-        string imageUrl = book.ImageUrl;
-        AuthorDbModel author = book.Author;
+        var newBookEntry = _context.Books.Add(book).Entity;
+        _context.SaveChanges();
  
-        return Content($"This is your book title: {book.Title}");
+        return Created("Home/CreateBook", newBookEntry);
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
