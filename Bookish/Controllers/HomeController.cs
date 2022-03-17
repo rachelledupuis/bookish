@@ -55,7 +55,19 @@ public class HomeController : Controller
         var newBookEntry = _context.Books.Add(book).Entity;
         _context.SaveChanges();
  
-        return Created("Home/CreateBook", newBookEntry);
+        return RedirectToAction("BookList");
+    }
+
+    [HttpDelete("{id}")]
+    public IActionResult DeleteBook([FromRoute] int id)
+    {
+        var book = _context.Books
+                    .Single(book => book.Id == id);
+
+        _context.Books.Remove(book);
+        _context.SaveChanges();
+ 
+        return Ok();
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
