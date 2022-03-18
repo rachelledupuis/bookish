@@ -1,6 +1,6 @@
-namespace bookish.Models.Database
+namespace bookish.Models.Request
 {
-    public class BookDbModel
+    public class CreateBookRequest
     {
         public int? Id { get; set; }
         public string? Isbn { get; set; }
@@ -8,6 +8,6 @@ namespace bookish.Models.Database
         public string? Blurb { get; set; }
         public int? YearPublished { get; set; }
         public string? ImageUrl { get; set; }
-        public AuthorDbModel Author { get; set; }
+        public int AuthorId { get; set; }
     }
 }

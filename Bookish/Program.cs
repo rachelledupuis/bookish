@@ -10,6 +10,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IBookRepo, BookRepo>();
 builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<BookishContext>();
+builder.Services.AddScoped<IAuthorRepo, AuthorRepo>();
+builder.Services.AddScoped<IAuthorService, AuthorService>();
+
 
 var app = builder.Build();
 

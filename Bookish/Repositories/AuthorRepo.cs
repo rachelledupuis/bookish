@@ -1,4 +1,5 @@
 using bookish.Models.Database;
+using Microsoft.EntityFrameworkCore;
 
 namespace bookish.Repositories
 {
@@ -9,21 +10,12 @@ namespace bookish.Repositories
     public class AuthorRepo : IAuthorRepo
     {
 
-
+        private BookishContext context = new BookishContext();
         public List<AuthorDbModel> GetAllAuthors()
         {
-            return new List<AuthorDbModel>
+            return context.Authors.ToList();
             {
-                new AuthorDbModel
-                {
-                    Id = 1,
-                    Name = "Neville Shute"
-                },
-                new AuthorDbModel
-                {
-                    Id = 2,
-                    Name = "F. Scott Fitzgerald"
-                }
+                
             };
         }
     }

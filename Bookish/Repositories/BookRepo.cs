@@ -1,4 +1,5 @@
 using bookish.Models.Database;
+using bookish.Models.Request;
 using Microsoft.EntityFrameworkCore;
 
 namespace bookish.Repositories
@@ -6,6 +7,7 @@ namespace bookish.Repositories
     public interface IBookRepo
     {
         public List<BookDbModel> GetAllBooks();
+        public BookDbModel CreateBook(CreateBookRequest book);
     }
 
     public class BookRepo : IBookRepo
@@ -17,6 +19,22 @@ namespace bookish.Repositories
             {
                 
             };
+        }
+        public BookDbModel CreateBook(CreateBookRequest book)
+        {
+            var newBook = new BookDbModel{
+                Isbn = book.Isbn,
+                Title = book.Title,
+                YearPublished = book.YearPublished,
+                ImageUrl = book.ImageUrl,
+                Blurb = book.Blurb
+            };
+            var newBookEntry = context.Books.Add(newBook).Entity;
+            var author = context.Authors.Where(a => a.Id == book.AuthorId).Single();
+            newBookEntry.Author = author;
+            context.SaveChanges();
+
+            return newBookEntry;
         }
     }
 }

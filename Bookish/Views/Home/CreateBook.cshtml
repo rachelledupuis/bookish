@@ -1,18 +1,18 @@
-@model bookish.Models.Database.BookDbModel
+@model bookish.Models.Request.CreateBookRequest
  
 <form asp-action="CreateBook" asp-controller="Home">
     <label asp-for="Title"></label>
     <input asp-for="Title" placeholder="Title"/>
     <label asp-for="Isbn"></label>
     <input asp-for="Isbn" placeholder="ISBN"/>
-    <label asp-for="Author.Name"></label>
-    <input asp-for="Author.Name" placeholder="Author"/>
+    <select asp-for="AuthorId" asp-items="ViewBag.authors"></select>
     <label asp-for="Blurb"></label>
     <input asp-for="Blurb" placeholder="Blurb"/>
     <label asp-for="YearPublished"></label>
     <input asp-for="YearPublished" placeholder="Year Published"/>
     <label asp-for="ImageUrl"></label>
     <input asp-for="ImageUrl" placeholder="Book Cover URL"/>
+    </div>
     <input type="submit" />
     <input name="__RequestVerificationToken" type="hidden" value="<token_generated_here>">
 </form>

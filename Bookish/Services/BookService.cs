@@ -1,6 +1,7 @@
 using bookish;
 using bookish.Models;
 using bookish.Models.Database;
+using bookish.Models.Request;
 using bookish.Repositories;
 
 namespace bookish.Services
@@ -9,11 +10,11 @@ namespace bookish.Services
     public interface IBookService
     {
         public List<Book> GetAllBooks();
+        public BookDbModel CreateBook(CreateBookRequest book);
     }
     public class BookService : IBookService
     {
         private IBookRepo _books;
-        // private AuthorRepo _authors = new AuthorRepo();
 
         public BookService(IBookRepo books)
         {
@@ -39,33 +40,9 @@ namespace bookish.Services
             }
             return books;
         }
-        /* public BookDbModel CreateBook(BookDbModel createBook)
+        public BookDbModel CreateBook(CreateBookRequest book)
         {
-            var newAuthor = new AuthorDbModel();
-
-            if (createBook.Author != null)
-            {
-                newAuthor.Add(
-                    new AuthorDbModel
-                    {
-                        Name = createBook.Author.Name,
-                    }
-                );
-            }
-
-            var newBook = _books.CreateBook(
-                new BookDbModel
-                {
-                    Isbn = createBook.Isbn,
-                    Title = createBook.Title,
-                    ImageUrl = createBook.ImageUrl,
-                    Blurb = createBook.Blurb,
-                    Author = createBook.Author,
-                    YearPublished = createBook.YearPublished,
-                }
-            );
-
-            return new BookDbModel(newBook);
-        } */
+            return _books.CreateBook(book);
+        }
     }
 }

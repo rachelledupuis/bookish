@@ -4,6 +4,8 @@ using bookish.Models;
 using bookish.Services;
 using bookish.Models.Database;
 using bookish.Repositories;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using bookish.Models.Request;
 
 namespace bookish.Controllers;
 
@@ -12,13 +14,15 @@ public class HomeController : Controller
     private readonly ILogger<HomeController> _logger;
 
     private readonly IBookService _bookService;
+    private readonly IAuthorService _authorService;
     private readonly BookishContext _context;
 
-    public HomeController(ILogger<HomeController> logger, IBookService bookService, BookishContext context)
+    public HomeController(ILogger<HomeController> logger, IBookService bookService, BookishContext context, IAuthorService authorService)
     {
         _logger = logger;
         _bookService = bookService;
         _context = context;
+        _authorService = authorService;
     }
 
     public IActionResult Index()
@@ -46,14 +50,19 @@ public class HomeController : Controller
 
     public IActionResult CreateBook()
     {
+        var authors = _authorService.GetAllAuthors();
+        ViewBag.authors = authors.Select(a => new SelectListItem 
+            {
+                Value = a.Id.ToString(),
+                Text = a.Name,
+            });
         return View();
     }
 
     [HttpPost]
-    public IActionResult CreateBook([FromForm] BookDbModel book)
+    public IActionResult CreateBook([FromForm] CreateBookRequest book)
     {
-        var newBookEntry = _context.Books.Add(book).Entity;
-        _context.SaveChanges();
+        _bookService.CreateBook(book);
  
         return RedirectToAction("BookList");
     }
@@ -61,8 +70,7 @@ public class HomeController : Controller
     [HttpDelete("{id}")]
     public IActionResult DeleteBook([FromRoute] int id)
     {
-        var book = _context.Books
-                    .Single(book => book.Id == id);
+        var book = _context.Books.Single(book => book.Id == id);
 
         _context.Books.Remove(book);
         _context.SaveChanges();
