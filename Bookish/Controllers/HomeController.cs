@@ -15,12 +15,14 @@ public class HomeController : Controller
 
     private readonly IBookService _bookService;
     private readonly IAuthorService _authorService;
+    private readonly IMemberService _memberService;
 
-    public HomeController(ILogger<HomeController> logger, IBookService bookService, IAuthorService authorService)
+    public HomeController(ILogger<HomeController> logger, IBookService bookService, IAuthorService authorService, IMemberService memberService)
     {
         _logger = logger;
         _bookService = bookService;
         _authorService = authorService;
+        _memberService = memberService;
     }
 
     public IActionResult Index()
@@ -32,10 +34,11 @@ public class HomeController : Controller
     {
         return View();
     }
+    [HttpGet("Members")]
     public IActionResult Members()
     {
-        var memberService = new MemberService();
-        var members = memberService.GetAllMembers();
+        var members = _memberService.GetAllMembers();
+
         return View(members);
     }
 
@@ -45,7 +48,7 @@ public class HomeController : Controller
        
         return View(books);
     }
-
+    [HttpGet("/Book/Create")]
     public IActionResult CreateBook()
     {
         var authors = _authorService.GetAllAuthors();
@@ -85,6 +88,13 @@ public class HomeController : Controller
     public IActionResult DeleteAuthor([FromRoute] int id)
     {
         _authorService.DeleteAuthor(id);
+ 
+        return Ok();
+    }
+    [HttpPost]
+    public IActionResult CreateMember([FromForm] MemberDbModel member)
+    {
+        _memberService.CreateMember(member);
  
         return Ok();
     }

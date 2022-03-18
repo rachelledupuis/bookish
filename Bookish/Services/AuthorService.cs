@@ -1,11 +1,9 @@
-using bookish;
 using bookish.Models;
 using bookish.Models.Database;
 using bookish.Repositories;
 
 namespace bookish.Services
 {
-
     public interface IAuthorService
     {
         public List<Author> GetAllAuthors();

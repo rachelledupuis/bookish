@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace bookish.Repositories
 {
-        public interface IAuthorRepo
-        {
-            public List<AuthorDbModel> GetAllAuthors();
-            public void CreateAuthor(AuthorDbModel author);
-            public void DeleteAuthor(int id);
-        }
+    public interface IAuthorRepo
+    {
+        public List<AuthorDbModel> GetAllAuthors();
+        public void CreateAuthor(AuthorDbModel author);
+        public void DeleteAuthor(int id);
+    }
     public class AuthorRepo : IAuthorRepo
     {
 
@@ -16,9 +16,6 @@ namespace bookish.Repositories
         public List<AuthorDbModel> GetAllAuthors()
         {
             return context.Authors.ToList();
-            {
-                
-            };
         }
         public void CreateAuthor(AuthorDbModel author)
         {

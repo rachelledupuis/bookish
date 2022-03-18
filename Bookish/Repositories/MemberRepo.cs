@@ -3,13 +3,29 @@ using Microsoft.EntityFrameworkCore;
 
 namespace bookish.Repositories
 {
-    public class MemberRepo
+    public interface IMemberRepo
     {
-
-        private BookishContext _context = new BookishContext();
+        public List<MemberDbModel> GetAllMembers();
+        public void CreateMember(MemberDbModel member);
+        public void DeleteMember(int id);
+    }
+    public class MemberRepo : IMemberRepo
+    {
+        private BookishContext context = new BookishContext();
         public List<MemberDbModel> GetAllMembers()
         {
-            return _context.Members.ToList();
+            return context.Members.ToList();
+        }
+        public void CreateMember(MemberDbModel member)
+        {
+            var newMemberEntry = context.Members.Add(member).Entity;
+            context.SaveChanges();
+        }
+        public void DeleteMember(int id)
+        {
+            var member = context.Members.Single(member => member.Id == id);
+            context.Members.Remove(member);
+            context.SaveChanges();
         }
     }
 }

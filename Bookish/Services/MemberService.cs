@@ -1,11 +1,22 @@
 using bookish.Models;
+using bookish.Models.Database;
 using bookish.Repositories;
 
 namespace bookish.Services
 {
-    public class MemberService
+    public interface IMemberService
     {
-        private MemberRepo _members = new MemberRepo();
+        public List<Member> GetAllMembers();
+        public void CreateMember(MemberDbModel member);
+        public void DeleteMember(int id);
+    }
+    public class MemberService : IMemberService
+    {
+        private IMemberRepo _members;
+        public MemberService(IMemberRepo members)
+        {
+            _members = members;
+        }
 
         public List<Member> GetAllMembers()
         {
@@ -26,6 +37,14 @@ namespace bookish.Services
             };
 
             return members;
+        }
+        public void CreateMember(MemberDbModel member)
+        {
+            _members.CreateMember(member);
+        }
+        public void DeleteMember(int id)
+        {
+            _members.DeleteMember(id);
         }
     }
 }
