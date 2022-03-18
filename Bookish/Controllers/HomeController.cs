@@ -70,10 +70,7 @@ public class HomeController : Controller
     [HttpDelete("{id}")]
     public IActionResult DeleteBook([FromRoute] int id)
     {
-        var book = _context.Books.Single(book => book.Id == id);
-
-        _context.Books.Remove(book);
-        _context.SaveChanges();
+        _bookService.DeleteBook(id);
  
         return Ok();
     }

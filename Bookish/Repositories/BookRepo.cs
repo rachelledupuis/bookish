@@ -8,6 +8,7 @@ namespace bookish.Repositories
     {
         public List<BookDbModel> GetAllBooks();
         public BookDbModel CreateBook(CreateBookRequest book);
+        public void DeleteBook(int id);
     }
 
     public class BookRepo : IBookRepo
@@ -16,9 +17,6 @@ namespace bookish.Repositories
         public List<BookDbModel> GetAllBooks()
         {
             return context.Books.Include(b => b.Author).ToList();
-            {
-                
-            };
         }
         public BookDbModel CreateBook(CreateBookRequest book)
         {
@@ -35,6 +33,12 @@ namespace bookish.Repositories
             context.SaveChanges();
 
             return newBookEntry;
+        }
+        public void DeleteBook(int id)
+        {
+            var book = context.Books.Single(book => book.Id == id);
+            context.Books.Remove(book);
+            context.SaveChanges();
         }
     }
 }

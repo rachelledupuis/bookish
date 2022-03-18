@@ -11,6 +11,7 @@ namespace bookish.Services
     {
         public List<Book> GetAllBooks();
         public BookDbModel CreateBook(CreateBookRequest book);
+        public void DeleteBook(int id);
     }
     public class BookService : IBookService
     {
@@ -43,6 +44,10 @@ namespace bookish.Services
         public BookDbModel CreateBook(CreateBookRequest book)
         {
             return _books.CreateBook(book);
+        }
+        public void DeleteBook(int id)
+        {
+            _books.DeleteBook(id);
         }
     }
 }
