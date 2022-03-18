@@ -91,12 +91,16 @@ public class HomeController : Controller
  
         return Ok();
     }
+    public IActionResult CreateMember()
+    {
+        return View();
+    }
     [HttpPost]
     public IActionResult CreateMember([FromForm] MemberDbModel member)
     {
         _memberService.CreateMember(member);
  
-        return Ok();
+        return RedirectToAction("Members");
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

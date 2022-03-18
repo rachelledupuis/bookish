@@ -1,0 +1,13 @@
+@model bookish.Models.Database.MemberDbModel
+ 
+<form asp-action="CreateMember" asp-controller="Home">
+    <label asp-for="Name"></label>
+    <input asp-for="Name" placeholder="Name"/>
+    <label asp-for="Email"></label>
+    <input asp-for="Email" placeholder="Email"/>
+    <label asp-for="BirthDate"></label>
+    <input asp-for="BirthDate" placeholder="BirthDate"/>
+    </div>
+    <input type="submit" />
+    <input name="__RequestVerificationToken" type="hidden" value="<token_generated_here>">
+</form>
