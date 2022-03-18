@@ -9,6 +9,8 @@ namespace bookish.Services
     public interface IAuthorService
     {
         public List<Author> GetAllAuthors();
+        public void CreateAuthor(AuthorDbModel author);
+        public void DeleteAuthor(int id);
     }
     public class AuthorService : IAuthorService
     {
@@ -32,6 +34,14 @@ namespace bookish.Services
                 );
             }
             return authors;
+        }
+        public void CreateAuthor(AuthorDbModel author)
+        {
+            _authors.CreateAuthor(author);
+        }
+        public void DeleteAuthor(int id)
+        {
+            _authors.DeleteAuthor(id);
         }
     }
 }

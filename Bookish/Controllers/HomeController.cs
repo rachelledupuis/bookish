@@ -15,13 +15,11 @@ public class HomeController : Controller
 
     private readonly IBookService _bookService;
     private readonly IAuthorService _authorService;
-    private readonly BookishContext _context;
 
-    public HomeController(ILogger<HomeController> logger, IBookService bookService, BookishContext context, IAuthorService authorService)
+    public HomeController(ILogger<HomeController> logger, IBookService bookService, IAuthorService authorService)
     {
         _logger = logger;
         _bookService = bookService;
-        _context = context;
         _authorService = authorService;
     }
 
@@ -67,10 +65,26 @@ public class HomeController : Controller
         return RedirectToAction("BookList");
     }
 
-    [HttpDelete("{id}")]
+    [HttpPost]
+    public IActionResult CreateAuthor([FromForm] AuthorDbModel author)
+    {
+        _authorService.CreateAuthor(author);
+ 
+        return Ok();
+    }
+
+    [HttpDelete("/Book/{id}")]
     public IActionResult DeleteBook([FromRoute] int id)
     {
         _bookService.DeleteBook(id);
+ 
+        return Ok();
+    }
+
+    [HttpDelete("/Author/{id}")]
+    public IActionResult DeleteAuthor([FromRoute] int id)
+    {
+        _authorService.DeleteAuthor(id);
  
         return Ok();
     }
